@@ -5,40 +5,31 @@ $(document).ready(function () {
     "<h1 id='title' class='text-center'>Trivial Game</h1><p class='text-center main-button-container'><a class='btn btn-warning btn-lg btn-block start-button' href='#' role='button'>Start Quiz</a></p>";
     $(".startQuizArea").html(startScreen);
   })();
-
   //Listen for the click on the start-button click
   $("body").on("click", ".start-button", function (event) {
     event.preventDefault();
     $(this).hide(); //hide the Start Button
-    // clickSound.play();
     document.getElementById('questions').style.visibility = "visible";
     generateQuestionsHTMLArea();
     timerWrapper();
   });
-
   //Listen for the answer click
   $("body").on("click", ".answer", function (event) {
     //As soon as a click has been registered, disable all possible answers
     $(".answer").addClass('deactivate');
-    // clickSound.play();
     selectedAnswer = $(this).text(); //Grab the text from the selected answer
     if (selectedAnswer === correctAnswers[questionCounter]) {
-      //alert("correct");
       clearInterval(theClock);
       displayWin();
     } else {
-      //alert("wrong answer!");
       clearInterval(theClock);
       displayLoss();
     }
   });
-
   //Listen for the reset-button click
   $("body").on("click", ".reset-button", function (event) {
-    // clickSound.play();
     resetGame();
   });
-
 });
 
 //Display the questions on the right hand side
@@ -70,7 +61,7 @@ function displayWin() {
     "<p class='text-center timer-p'>Correct!<br/> The answer is: <br/> " +
     correctAnswers[questionCounter];
   $(".timer").html(toBeRendered);
-  setTimeout(wait, 4000);
+  setTimeout(goLookForQuestions, 4000);
 }
 
 //Display the LOSS if we got the right answer
@@ -84,7 +75,7 @@ function displayLoss() {
     correctAnswers[questionCounter] +
     "</p>";
   $(".timer").html(toBeRendered);
-  setTimeout(wait, 4000);
+  setTimeout(goLookForQuestions, 4000);
 }
 
 //Display loss due to the timeout
@@ -98,9 +89,8 @@ function displayLossDueToTimeOut() {
     "<p class='text-center timer-p'>You ran out of time! <br/>  The correct answer was: <br/> " +
     correctAnswers[questionCounter] + "</p>";
   $(".timer").html(toBeRendered);
-  setTimeout(wait, 4000);
+  setTimeout(goLookForQuestions, 4000);
 }
-
 
 //The resetGame function
 function resetGame() {
@@ -114,14 +104,14 @@ function resetGame() {
   document.getElementById('timer').style.visibility = "visible";
 }
 
-function wait() {
+function goLookForQuestions() {
   if (questionCounter < 5) {
     questionCounter++;
     generateQuestionsHTMLArea();
     counter = 5;
     timerWrapper();
   } else {
-    finalScreen();
+    screenResults();
   }
 }
 
@@ -143,9 +133,8 @@ function timerWrapper() {
   }
 }
 
-
 //To Display the Final results
-function finalScreen() {
+function screenResults() {
   document.getElementById('timer').style.visibility = "hidden";
   renderThisHTML =
     "<p class='text-center'>All done, here's how you did!" +
@@ -174,7 +163,7 @@ var theClock;
 var correctTally = 0;
 var incorrectTally = 0;
 var unansweredTally = 0;
-// var clickSound = new Audio("assets/sound/buttonclick.mp3");
+
 //Array of questions to be displayed to the user
 var questionArray = [
   "Who created JavaScript?",
