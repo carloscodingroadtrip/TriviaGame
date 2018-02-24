@@ -8,6 +8,7 @@ $(document).ready(function () {
   //Listen for the click on the start-button click
   $("body").on("click", ".start-button", function (event) {
     event.preventDefault();
+    buttonSound.play();
     $(this).hide(); //hide the Start Button
     document.getElementById('questions').style.visibility = "visible";
     generateQuestionsHTMLArea();
@@ -15,6 +16,7 @@ $(document).ready(function () {
   });
   //Listen for the answer click
   $("body").on("click", ".answer", function (event) {
+    buttonSound.play();
     //As soon as a click has been registered, disable all possible answers
     $(".answer").addClass('deactivate');
     selectedAnswer = $(this).text(); //Grab the text from the selected answer
@@ -28,6 +30,7 @@ $(document).ready(function () {
   });
   //Listen for the reset-button click
   $("body").on("click", ".reset-button", function (event) {
+    buttonSound.play();
     resetGame();
   });
 });
@@ -163,7 +166,7 @@ var theClock;
 var correctTally = 0;
 var incorrectTally = 0;
 var unansweredTally = 0;
-
+var buttonSound = new Audio("assets/sound/button-click.mp3");
 //Array of questions to be displayed to the user
 var questionArray = [
   "Who created JavaScript?",
