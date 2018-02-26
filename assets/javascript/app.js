@@ -89,9 +89,10 @@ function displayLossDueToTimeOut() {
     "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" +
     counter +
     "</span></p>" +
-    "<p class='text-center timer-p'>You ran out of time! <br/>  The correct answer was: <br/> " +
+    "<p class='text-center timer-p'>You ran out of time!<br/>  The correct answer was: <br/> " +
     correctAnswers[questionCounter] + "</p>";
-  $(".timer").html(toBeRendered);
+    $(".timer").html(toBeRendered);
+    console.log(toBeRendered);
   setTimeout(goLookForQuestions, 4000);
 }
 
@@ -120,20 +121,21 @@ function goLookForQuestions() {
 
 function timerWrapper() {
   theClock = setInterval(thirtySeconds, 1000);
-  function thirtySeconds() {
-    //Evaluate if timer has expired
-    if (counter === 0) {
-      clearInterval(theClock);
-      displayLossDueToTimeOut();
-    }
+  thirtySeconds();
+}
 
-    //Deduct 1 second from the timer, if there is still time left
-    if (counter > 0) {
-      counter--;
-    }
-    displayTimer = "<p id='counterCLock' class='text-center timer-only'>" + counter + "</p>"
-    $(".timer").html(displayTimer);
+function thirtySeconds() {
+  //Evaluate if timer has expired
+  if (counter === 0) {
+    clearInterval(theClock);
+    displayLossDueToTimeOut();
   }
+  //Deduct 1 second from the timer, if there is still time left
+  if (counter > 0) {
+    counter--;
+  }
+  displayTimer = "<p id='counterCLock' class='text-center timer-only'>" + counter + "</p>"
+  $(".timer").html(displayTimer);
 }
 
 //To Display the Final results

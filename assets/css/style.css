@@ -12,7 +12,9 @@ body, html {
 }
 
 .deactivate {
-	opacity: 0.9;
+	opacity: 0.4;
+	cursor: not-allowed;
+	background-color:#d9d9d9;
 	pointer-events: none; /* will disable the buttons*/
 }
 
@@ -185,6 +187,7 @@ a.linkButton h1:hover {
   .answer {
 	padding-top: 7px;
 	height: 45px;
+	cursor: pointer;
 	color: #1a1a1a;
 	padding-left: 14px;
 	background-color:#f1bc1e;
